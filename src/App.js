@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   return (
-    <select multiple>
+    <select multiple={false}>
       <option value='1'>A</option>
       <option value='2'>B</option>
       <option value='3'>C</option>

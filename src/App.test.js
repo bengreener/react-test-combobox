@@ -7,9 +7,11 @@ test('renders select listbox', async () => {
   const component = render(<App />);
   // logRoles(component.container);
 
-  await user.selectOptions(screen.getByRole('listbox'), ['1', 'C'])
+  // await user.selectOptions(screen.getByRole('listbox'), ['1', 'C'])
+  await user.selectOptions(screen.getByRole('combobox'), '1')
 
   expect(screen.getByRole('option', {name: 'A'}).selected).toBe(true)
   expect(screen.getByRole('option', {name: 'B'}).selected).toBe(false)
-  expect(screen.getByRole('option', {name: 'C'}).selected).toBe(true)
+  // expect(screen.getByRole('option', {name: 'C'}).selected).toBe(true)
+  expect(screen.getByRole('option', {name: 'C'}).selected).toBe(false)
 });
