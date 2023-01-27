@@ -1,8 +1,15 @@
-import { render, screen } from '@testing-library/react';
+import { logRoles, render, screen } from '@testing-library/react';
+import UserEvent from '@testing-library/user-event';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders select listbox', async () => {
+  const user = UserEvent.setup();
+  const component = render(<App />);
+  // logRoles(component.container);
+
+  await user.selectOptions(screen.getByRole('listbox'), ['1', 'C'])
+
+  expect(screen.getByRole('option', {name: 'A'}).selected).toBe(true)
+  expect(screen.getByRole('option', {name: 'B'}).selected).toBe(false)
+  expect(screen.getByRole('option', {name: 'C'}).selected).toBe(true)
 });
