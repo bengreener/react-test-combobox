@@ -1,6 +1,6 @@
 # React Test Combobox
 
-A simple React controlled combobox with tests to confirm selection changes.
+Simple React controlled combobox with tests to confirm selection changes.
 
 ## Configuration
 
