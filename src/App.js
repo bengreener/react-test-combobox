@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+import ComboBox from './component/ComboBox';
+
+const options = [{'value': '1', 'text': 'A'}, {'value': '2', 'text': 'B'}, {'value': '3', 'text': 'C'}];
 
 function App() {
   const [value, setValue] = React.useState();
@@ -9,12 +12,10 @@ function App() {
   }
 
   return (
-    // <select multiple={false}>
-    <select multiple={false} value={value} onChange={handleSelectionChange}>
-      <option value='1'>A</option>
-      <option value='2'>B</option>
-      <option value='3'>C</option>
-    </select>
+    <div>
+      <h1>Combo Box Demo</h1>
+      <ComboBox options={options} value={value} onChange={handleSelectionChange} />
+    </div>
   );
 }
 
