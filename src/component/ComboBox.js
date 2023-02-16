@@ -1,15 +1,30 @@
+import React from 'react';
+
 /**
- * @param {object<{multiple<boolean>, value, options<array<value, text>>, onChange<event>}>} props 
- * @returns ComboBox
+ * Simple combo box
+ * @param {Object} props
+ * @param {string} props.value
+ * @param {Object[]} props.options
+ * @param {string} props.options[].value
+ * @param {string} props.options[].text
+ * @param {ComboBox~onChange} props.onChange
+ * @returns {React.ReactComponentElement}
  */
-function ComboBox({multiple, value, options, onChange}) {
+function ComboBox({value, options, onChange}) {
+
+  const optionElements = options.map(option => <option key={option.value} value={option.value}>{option.text}</option>);
     return (
-        <select multiple={multiple} value={value} onChange={onChange}>
-          <option value='1'>A</option>
-          <option value='2'>B</option>
-          <option value='3'>C</option>
+        <select multiple={false} value={value} onChange={onChange}>
+          {optionElements}
         </select>
       );
 }
 
 export default ComboBox;
+
+/**
+ * @callback ComboBox~onChange
+ * @param {Object} event
+ * @param {Object} event.target
+ * @param {string} event.target.value
+ */
