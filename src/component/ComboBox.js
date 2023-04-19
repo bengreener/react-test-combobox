@@ -5,19 +5,21 @@ import React from 'react';
  * @param {Object} props
  * @param {string} props.value
  * @param {Object[]} props.options
- * @param {string} props.options[].value
- * @param {string} props.options[].text
  * @param {ComboBox~onChange} props.onChange
  * @returns {React.ReactComponentElement}
  */
 function ComboBox({value, options, onChange}) {
 
-  const optionElements = options.map(option => <option key={option.value} value={option.value}>{option.text}</option>);
+  const optionElements = options.map(option => <option key={option} id={option} value={option}>{option}</option>);
     return (
-        <select multiple={false} value={value} onChange={onChange}>
+      <>
+        <input id="combobox" name="combobox" list="options" value={value} onChange={onChange} />
+        <datalist id="options">
           {optionElements}
-        </select>
-      );
+        </datalist>
+      </>
+    );
+      
 }
 
 export default ComboBox;
