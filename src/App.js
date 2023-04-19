@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 import ComboBox from './component/ComboBox';
 
-const options = [{'value': '1', 'text': 'A'}, {'value': '2', 'text': 'B'}, {'value': '3', 'text': 'C'}];
+const options = ['Along', 'Also', 'Absent', 'Batch', 'Beast', 'Crayon', 'Canoe'];
 
 function App() {
-  const [value, setValue] = React.useState();
+  const [value, setValue] = React.useState('');
 
   function handleSelectionChange(event) {
     setValue(event.target.value);

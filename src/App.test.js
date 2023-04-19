@@ -5,18 +5,23 @@ import App from './App';
 test('renders combobox', async () => {
   const component = render(<App />);
 
-  expect(screen.getByRole('option', {name: 'A'}).selected).toBe(true);
-  expect(screen.getByRole('option', {name: 'B'}).selected).toBe(false);
-  expect(screen.getByRole('option', {name: 'C'}).selected).toBe(false);
+  expect(screen.getByRole('combobox', {name: ''})).toBeInTheDocument();
+  expect(document.getElementById('options')).toBeInTheDocument();
+  expect(document.getElementById('Along')).toBeInTheDocument();
+  expect(document.getElementById('Also')).toBeInTheDocument();
+  expect(document.getElementById('Absent')).toBeInTheDocument();
+  expect(document.getElementById('Batch')).toBeInTheDocument();
+  expect(document.getElementById('Beast')).toBeInTheDocument();
+  expect(document.getElementById('Crayon')).toBeInTheDocument();
+  expect(document.getElementById('Canoe')).toBeInTheDocument();
 });
 
 it('changes selection in combobox', async () => {
   const user = UserEvent.setup();
   const component = render(<App />);
 
-  await user.selectOptions(screen.getByRole('combobox'), 'B')
+  const combobox = screen.getByRole('combobox');
+  await user.type(combobox, 'Beast');
 
-  expect(screen.getByRole('option', {name: 'A'}).selected).toBe(false);
-  expect(screen.getByRole('option', {name: 'B'}).selected).toBe(true);
-  expect(screen.getByRole('option', {name: 'C'}).selected).toBe(false);
+  expect(combobox.value).toBe('Beast');
 })

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import UserEvent from '@testing-library/user-event';
 import ComboBox from './ComboBox';
 
-const options = [{'value': '1', 'text': 'A'}, {'value': '2', 'text': 'B'}, {'value': '3', 'text': 'C'}];
+const options = ['Along', 'Also', 'Absent', 'Batch', 'Beast', 'Crayon', 'Canoe'];
 const mockOnChange = jest.fn();
 
 beforeEach(() => {
@@ -12,37 +12,47 @@ beforeEach(() => {
 describe('when an uncontrolled component', () => {
     it('renders combobox', async () => {
         render(<ComboBox options={options}/>);
-        // first option would be true by default by default as no value set
-        expect(screen.getByRole('option', {name: 'A'}).selected).toBe(true);
-        expect(screen.getByRole('option', {name: 'B'}).selected).toBe(false);
-        expect(screen.getByRole('option', {name: 'C'}).selected).toBe(false);
+        expect(screen.getByRole('combobox', {name: ''})).toBeInTheDocument();
+        expect(document.getElementById('options')).toBeInTheDocument();
+        expect(document.getElementById('Along')).toBeInTheDocument();
+        expect(document.getElementById('Also')).toBeInTheDocument();
+        expect(document.getElementById('Absent')).toBeInTheDocument();
+        expect(document.getElementById('Batch')).toBeInTheDocument();
+        expect(document.getElementById('Beast')).toBeInTheDocument();
+        expect(document.getElementById('Crayon')).toBeInTheDocument();
+        expect(document.getElementById('Canoe')).toBeInTheDocument();
     });
     it('changes selection in combobox', async () => {
         const user = UserEvent.setup();
         render(<ComboBox options={options}/>);
-        await user.selectOptions(screen.getByRole('combobox'), 'C')
-        expect(screen.getByRole('option', {name: 'A'}).selected).toBe(false);
-        expect(screen.getByRole('option', {name: 'B'}).selected).toBe(false);
-        expect(screen.getByRole('option', {name: 'C'}).selected).toBe(true);
+        const combobox = screen.getByRole('combobox');
+        await user.type(combobox, 'Beast');
+        expect(combobox.value).toBe('Beast');
     })
 })
 
 describe('when a controlled component', () => {
     it('renders combobox', async () => {
-        render(<ComboBox value={2} options={options} onChange={mockOnChange}/>);
-
-        expect(screen.getByRole('option', {name: 'A'}).selected).toBe(false);
-        expect(screen.getByRole('option', {name: 'B'}).selected).toBe(true);
-        expect(screen.getByRole('option', {name: 'C'}).selected).toBe(false);
+        render(<ComboBox value={''} options={options} onChange={mockOnChange}/>);
+        expect(screen.getByRole('combobox', {name: ''})).toBeInTheDocument();
+        expect(document.getElementById('options')).toBeInTheDocument();
+        expect(document.getElementById('Along')).toBeInTheDocument();
+        expect(document.getElementById('Also')).toBeInTheDocument();
+        expect(document.getElementById('Absent')).toBeInTheDocument();
+        expect(document.getElementById('Batch')).toBeInTheDocument();
+        expect(document.getElementById('Beast')).toBeInTheDocument();
+        expect(document.getElementById('Crayon')).toBeInTheDocument();
+        expect(document.getElementById('Canoe')).toBeInTheDocument();
     });
     // if focussed on user oriented behaviour this test is not required as behaviour tested in 'changes selection in combobox'
     // although if 'calls onChange handler' passes and 'changes selection in combobox' fails narrows search for a cause :-)
     it('calls onChange handler', async () => {
         const user = UserEvent.setup();
         
-        render(<ComboBox value={2} options={options} onChange={mockOnChange} />);
+        render(<ComboBox value={''} options={options} onChange={mockOnChange} />);
     
-        await user.selectOptions(screen.getByRole('combobox'), 'C')
+        const combobox = screen.getByRole('combobox');
+        await user.type(combobox, 'Beast');
         expect(mockOnChange).toBeCalled();
     })
     it('changes selection in combobox', async () => {
@@ -51,11 +61,10 @@ describe('when a controlled component', () => {
         })
         const user = UserEvent.setup();
 
-        const {rerender} = render(<ComboBox value={2} options={options} onChange={handleSelectionChange}/>);
+        const {rerender} = render(<ComboBox value={''} options={options} onChange={handleSelectionChange}/>);
     
-        await user.selectOptions(screen.getByRole('combobox'), 'C')
-        expect(screen.getByRole('option', {name: 'A'}).selected).toBe(false);
-        expect(screen.getByRole('option', {name: 'B'}).selected).toBe(false);
-        expect(screen.getByRole('option', {name: 'C'}).selected).toBe(true);
+        const combobox = screen.getByRole('combobox');
+        await user.type(combobox, 'Beast');
+        expect(combobox.value).toBe('Beast');
     })
 })
